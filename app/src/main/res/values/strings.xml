@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">JetToDo</string>
+    <string name="add_button">Add Todo</string>
+    <string name="search_button">Search Todos</string>
+    <string name="sort_button">Sort Todos</string>
+    <string name="delete_all_button">Delete All Todos</string>
+    <string name="close_button">Clear / Close Search Bar</string>
+    <string name="default_top_app_bar_title">Tasks</string>
+    <string name="search_bar_placeholder">Search</string>
+    <string name="empty_box">Empty Box</string>
+    <string name="empty_content">Nothing Found\n Add Some!</string>
+    <string name="add_todo">Add Todo</string>
+    <string name="delete_button">Delete Button</string>
+    <string name="update_button">Update Button</string>
+    <string name="drop_down_button">"Drop Down Arrow"</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="confirm">Yes</string>
+    <string name="dismiss">No</string>
+    <string name="delete_task">Remove \'%1$s\'?</string>
+    <string name="delete_task_confirmation">Are you sure you want to remove \'%1$s\'?</string>
+    <string name="delete_all_tasks">Remove all tasks?</string>
+    <string name="delete_all_tasks_confirmation">Are you sure you want to remove all tasks?</string>
+</resources>
