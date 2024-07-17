@@ -57,6 +57,10 @@ fun ListScreen(
                     sortOrder = sharedViewModel.sortOrder.collectAsState().value,
                     searchAppBarState = sharedViewModel.searchAppBarState.value,
                     navigateToTaskScreen = navigateToTaskScreen,
+                    onSwipeToDelete = { action, task ->
+                        sharedViewModel.action.value = action
+                        sharedViewModel.updateTaskFields(task)
+                    },
                 )
             }
         }
