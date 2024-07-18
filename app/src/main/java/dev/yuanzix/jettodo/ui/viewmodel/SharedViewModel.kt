@@ -174,7 +174,6 @@ class SharedViewModel @Inject constructor(
 
             else -> return
         }
-        this.action.value = Action.NoAction
     }
 
     fun updateTaskFields(selectedTask: ToDoTask?) {

@@ -1,6 +1,7 @@
 package dev.yuanzix.jettodo.navigation.destination
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
@@ -20,9 +21,12 @@ fun NavGraphBuilder.listComposable(
             sharedViewModel.action.value = action
         }
 
+        val databaseAction by sharedViewModel.action
+
         ListScreen(
-            navigateToTaskScreen,
-            sharedViewModel
+            databaseAction = databaseAction,
+            navigateToTaskScreen = navigateToTaskScreen,
+            sharedViewModel = sharedViewModel
         )
     }
 }

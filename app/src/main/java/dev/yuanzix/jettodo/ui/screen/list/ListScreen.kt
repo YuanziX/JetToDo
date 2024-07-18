@@ -16,6 +16,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,14 +30,19 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ListScreen(
+    databaseAction: Action,
     navigateToTaskScreen: (Int) -> Unit,
     sharedViewModel: SharedViewModel,
 ) {
+    LaunchedEffect(key1 = databaseAction) {
+        sharedViewModel.handleDatabaseActions(databaseAction)
+    }
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     DisplaySnackBar(
         snackbarHostState = snackbarHostState,
-        handleDatabaseActions = { sharedViewModel.handleDatabaseActions(sharedViewModel.action.value) },
+        onComplete = { sharedViewModel.action.value = it },
         onUndoClicked = { sharedViewModel.action.value = it },
         taskTitle = sharedViewModel.title.value,
         action = sharedViewModel.action.value
@@ -84,12 +90,11 @@ private fun ListFab(
 @Composable
 fun DisplaySnackBar(
     snackbarHostState: SnackbarHostState,
-    handleDatabaseActions: () -> Unit,
+    onComplete: (Action) -> Unit,
     onUndoClicked: (Action) -> Unit,
     taskTitle: String,
     action: Action,
 ) {
-    handleDatabaseActions()
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = action) {
@@ -108,6 +113,7 @@ fun DisplaySnackBar(
                     onUndoClicked = onUndoClicked,
                 )
             }
+            onComplete(Action.NoAction)
         }
     }
 }
