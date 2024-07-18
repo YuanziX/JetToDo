@@ -2,10 +2,17 @@ package dev.yuanzix.jettodo.ui.screen.task
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import dev.yuanzix.jettodo.data.model.ToDoTask
@@ -19,6 +26,9 @@ fun TaskScreen(
     sharedViewModel: SharedViewModel,
 ) {
     val context = LocalContext.current
+
+    BackHandler(onBackPressed = { navigateToListScreen(Action.NoAction) })
+
     Scaffold(
         topBar = {
             TaskAppBar(
@@ -62,4 +72,27 @@ fun displayToast(context: Context) {
         "Fields cannot be empty",
         Toast.LENGTH_SHORT
     ).show()
+}
+
+@Composable
+fun BackHandler(
+    backDispatcher: OnBackPressedDispatcher? = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher,
+    onBackPressed: () -> Unit,
+) {
+    val currentOnBackPressed by rememberUpdatedState(onBackPressed)
+
+    val backCallback = remember {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                currentOnBackPressed()
+            }
+        }
+    }
+
+    DisposableEffect(key1 = backDispatcher) {
+        backDispatcher?.addCallback(backCallback)
+        onDispose {
+            backCallback.remove()
+        }
+    }
 }
