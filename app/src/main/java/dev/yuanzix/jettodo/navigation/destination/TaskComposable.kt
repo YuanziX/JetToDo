@@ -1,5 +1,7 @@
 package dev.yuanzix.jettodo.navigation.destination
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,7 +17,14 @@ fun NavGraphBuilder.taskComposable(
     sharedViewModel: SharedViewModel,
     navigateToListScreen: (Action) -> Unit,
 ) {
-    composable<TaskScreen> {
+    composable<TaskScreen>(
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { fullWidth -> -fullWidth },
+                animationSpec = tween(durationMillis = 400)
+            )
+        }
+    ) {
         val taskId = it.toRoute<TaskScreen>().id
 
         LaunchedEffect(key1 = taskId) {
