@@ -16,7 +16,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -64,6 +63,7 @@ fun ListScreen(
                     searchAppBarState = sharedViewModel.searchAppBarState.value,
                     navigateToTaskScreen = navigateToTaskScreen,
                     onSwipeToDelete = { action, task ->
+                        snackbarHostState.currentSnackbarData?.dismiss()
                         sharedViewModel.action.value = action
                         sharedViewModel.updateTaskFields(task)
                     },
