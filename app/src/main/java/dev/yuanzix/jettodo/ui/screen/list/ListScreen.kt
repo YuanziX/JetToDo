@@ -121,6 +121,7 @@ private fun setMessage(
         Action.Update -> "Updated: $taskTitle"
         Action.Delete -> "Deleted: $taskTitle"
         Action.DeleteAll -> "Deleted all tasks"
+        Action.Undo -> "Task restored"
         else -> ""
     }
 }
@@ -128,7 +129,7 @@ private fun setMessage(
 private fun setActionLabel(action: Action): String {
     return when (action) {
         Action.Delete -> "Undo"
-        else -> "Ok"
+        else -> "OK"
     }
 }
 
